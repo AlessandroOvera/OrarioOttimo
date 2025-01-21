@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docente</title>
+    <link rel="stylesheet" href="/static/css/Docente.css">
+    <link rel="stylesheet" href="/static/css/Calendario.css">
+</head>
+<body>
+    <header>
+        <div class="menu-button" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <h1 id="page-title">Benvenuto</h1>
+        <div class="notifications">
+            <div class="icon" onclick="toggleNotifications()">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2a6 6 0 0 0-6 6v3.586L5.293 13.293a1 1 0 0 0-.293.707V15a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-.293-.707L18 11.586V8a6 6 0 0 0-6-6zm0 19a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2z" />
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <div id="menu">
+        <h3>Menu</h3>
+        <ul>
+            <li onclick="loadContent('preferenze')">Invia Preferenze</li>
+            <hr class="menu-divider">
+            <li onclick="loadContent('segnalazione')">Invia Segnalazione</li>
+            <hr class="menu-divider">
+            <li onclick="loadContent('valutazione')">Invia Valutazione</li>
+            <hr class="menu-divider">
+            <li><button class="logout-button" onclick="logout()">Logout</button></li> <!-- Pulsante Logout nel menu laterale -->
+        </ul>
+    </div>
+
+    <!-- Pulsante Home -->
+    <div class="menu-home" onclick="goHome()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+            <path d="M3 9.5L12 3l9 6.5V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.5z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </div>
+
+    <main id="content" class="content">
+    <h2>Dati Utente</h2>
+    <div class="user-info">
+        <p><span class="label">Nome:</span> {{ user_data['nome'] }}</p>
+        <p><span class="label">Cognome:</span> {{ user_data['cognome'] }}</p>
+        <p><span class="label">Email:</span> {{ user_data['email'] }}</p>
+        <p><span class="label">Materia:</span> {{ user_data['materia'] }}</p>
+    </div>
+</main>
+
+    <script>
+        function logout() {
+            window.location.href = "/login";
+        }
+    </script>
+
+    <script src="static/js/Calendario.js"></script> <!-- Import JS calendario -->
+    <script>
+        // Funzioni JavaScript principali per interagire con la pagina principale
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            menu.style.transform = menu.style.transform === "translateX(0px)" ? "translateX(-100%)" : "translateX(0px)";
+        }
+
+        function toggleNotifications() {
+            const panel = document.getElementById("notification-panel");
+            panel.style.transform = panel.style.transform === "translateX(0px)" ? "translateX(100%)" : "translateX(0px)";
+        }
+
+function loadContent(type) {
+    const content = document.getElementById("content");
+    const title = document.getElementById("page-title");
+
+    if (type === 'preferenze') {
+        title.textContent = "Preferenze";
+        renderCalendar(content);
+    } else if (type === 'segnalazione') {
+        title.textContent = "Segnalazione";
+        content.innerHTML =
+            `<div class="segnalazione-container">
+                <h2>Scrivi la tua segnalazione</h2>
+                <textarea id="segnalazione-text" placeholder="Inserisci la tua segnalazione qui..."></textarea>
+                <button onclick="submitSegnalazione()">Invia</button>
+            </div>`;
+    } else if (type === 'valutazione') {
+        loadValutazione();
+    }
+}
+
+        function submitSegnalazione() {
+            const segnalazioneText = document.getElementById("segnalazione-text").value.trim();
+
+            if (segnalazioneText) {
+                fetch('/submit_segnalazione', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ segnalazione: segnalazioneText }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    document.getElementById("segnalazione-text").value = '';
+                })
+                .catch(error => {
+                    console.error("Errore:", error);
+                    alert("Errore durante l'invio.");
+                });
+            } else {
+                alert("Inserisci un testo nella segnalazione.");
+            }
+        }
+
+        function goHome() {
+    const content = document.getElementById("content");
+    const title = document.getElementById("page-title");
+
+    title.textContent = "Benvenuto"; // Cambia il titolo
+    content.innerHTML = `
+        <h2>Dati utente</h2>
+        <div class="user-info">
+            <p><span class="label">Nome:</span> {{ user_data['nome'] }}</p>
+            <p><span class="label">Cognome:</span> {{ user_data['cognome'] }}</p>
+            <p><span class="label">Email:</span> {{ user_data['email'] }}</p>
+            <p><span class="label">Materia:</span> {{ user_data['materia'] }}</p>
+        </div>`;
+}
+
+function loadValutazione() {
+    const content = document.getElementById("content");
+    const title = document.getElementById("page-title");
+
+    title.textContent = "Valutazione";
+    content.innerHTML = `
+        <div class="valutazione-container">
+            <h2>Invia la tua valutazione</h2>
+            <textarea id="valutazione-testo" placeholder="Scrivi qui la tua valutazione..." rows="4"></textarea>
+            <div class="button-container">
+                <div class="voto-container">
+                    <span class="voto-label">Voto:</span>
+                    <div class="voto-boxes">
+                        <label class="voto-box">
+                            <input type="radio" name="voto" value="1">
+                            <span>1</span>
+                        </label>
+                        <label class="voto-box">
+                            <input type="radio" name="voto" value="2">
+                            <span>2</span>
+                        </label>
+                        <label class="voto-box">
+                            <input type="radio" name="voto" value="3">
+                            <span>3</span>
+                        </label>
+                        <label class="voto-box">
+                            <input type="radio" name="voto" value="4">
+                            <span>4</span>
+                        </label>
+                        <label class="voto-box">
+                            <input type="radio" name="voto" value="5">
+                            <span>5</span>
+                        </label>
+                    </div>
+                </div>
+                <button id="invia-valutazione" onclick="submitValutazione()">Invia</button>
+            </div>
+        </div>
+    `;
+}
+
+function submitValutazione() {
+    const testoValutazione = document.getElementById("valutazione-testo").value.trim();
+    const voto = document.querySelector('input[name="voto"]:checked')?.value;
+
+    if (voto && testoValutazione) {
+        fetch('/submit_valutazione', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ voto, testo: testoValutazione }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            document.getElementById("valutazione-testo").value = "";
+            const checkedInput = document.querySelector('input[name="voto"]:checked');
+            if (checkedInput) checkedInput.checked = false;
+        })
+        .catch(error => {
+            console.error("Errore:", error);
+            alert("Errore durante l'invio.");
+        });
+    } else {
+        alert("Compila tutti i campi prima di inviare.");
+    }
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+.content {
+    margin-top: 20px;
+    display: none; /* Nascondiamo il contenuto per impostazione predefinita */
+}
+
+/* Stile per la dashboard */
+.dashboard {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.dashboard h2 {
+    text-align: center;
+    color: #204060;
+    margin-bottom: 20px;
+}
+
+.dashboard .option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #204060;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard .option:hover {
+    background-color: #f0f7ff;
+}
+
+.dashboard .option span {
+    font-size: 18px;
+    color: #204060;
+}
+
+.dashboard .option button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.dashboard .option button:hover {
+    background-color: #0056b3;
+}
+
+/* Stile della schermata dei pulsanti */
+.clock-panel {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.clock-panel h2 {
+    text-align: center;
+    color: #204060;
+    margin-bottom: 20px;
+}
+
+.clock-panel .option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #204060;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clock-panel .option:hover {
+    background-color: #f0f7ff;
+}
+
+.clock-panel .option span {
+    font-size: 18px;
+    color: #204060;
+}
+
+.clock-panel .option button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.clock-panel .option button:hover {
+    background-color: #0056b3;
+}

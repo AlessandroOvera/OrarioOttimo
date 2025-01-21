@@ -1,0 +1,323 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f7ff;
+    color: #204060;
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    background-color: #204060;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* Pulsante menu */
+.menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.menu-button div {
+    background-color: white;
+    height: 4px;
+    width: 100%;
+    border-radius: 2px;
+}
+
+/* Menu laterale */
+#menu {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 250px;
+    height: calc(100% - 60px);
+    background-color: #204060;
+    color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+#menu h3 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 18px;
+    color: #d0e4ff;
+}
+
+#menu ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+#menu ul li {
+    margin: 15px 0;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+}
+
+#menu ul li:hover {
+    color: #d0e4ff;
+}
+
+/* Home */
+.menu-home {
+    position: fixed;
+    bottom: 20px; /* Posizionata in basso */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2a4a73; /* Colore leggermente più chiaro rispetto al menu */
+    border-radius: 50%; /* Rende lo sfondo circolare */
+    cursor: pointer; /* Aggiunge il puntatore per il pulsante */
+}
+
+.menu-home:hover {
+    background-color: #3b5e91; /* Effetto di schiarimento leggero */
+}
+
+.menu-home svg {
+    width: 28px;
+    height: 28px;
+    stroke: white; /* Colore bianco per l'icona */
+}
+
+.menu-home span {
+    line-height: 1; /* Allineamento verticale perfetto */
+}
+
+/* Contenuto */
+.content {
+    margin: 20px;
+    text-align: center;
+}
+
+/* Segnalazione */
+.segnalazione-container {
+    text-align: center;
+    margin: 50px auto;
+    width: 400px;
+    background: white;
+    padding: 40px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.segnalazione-container textarea {
+    width: 90%;
+    height: 150px;
+    padding: 10px;
+    font-size: 16px;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.segnalazione-container button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #204060;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.segnalazione-container button:hover {
+    background-color: #1a334b;
+}
+
+/* Pulsante Logout */
+.logout-button {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #2a4a73; /* Colore leggermente più chiaro rispetto al menu */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #3b5e91; /* Effetto di schiarimento leggero */
+}
+
+/* Sezione informazioni utente */
+.user-info {
+    background-color: #eaf4ff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    margin: 20px auto;
+    font-size: 16px;
+}
+
+.user-info p {
+    margin: 10px 0;
+}
+
+.user-info .label {
+    font-weight: bold;
+    color: #204060;
+}
+
+/* Stile per la sezione Valutazione */
+.valutazione-container {
+    text-align: center;
+    margin: 50px auto;
+    width: 400px;
+    background: white;
+    padding: 40px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.valutazione-container h2 {
+    color: #204060;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.voto-dropdown {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.valutazione-container textarea {
+    width: 90%;
+    height: 150px;
+    padding: 10px;
+    font-size: 16px;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#invia-valutazione {
+    background-color: #3068a8;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#invia-valutazione:hover {
+    background-color: #204060;
+    transform: scale(1.05);
+}
+
+.voto-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.voto-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #204060;
+    margin-bottom: 10px;
+}
+
+.voto-boxes {
+    display: flex;
+    gap: 10px;
+}
+
+.voto-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #eaf4ff;
+    border: 2px solid #204060;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    color: #204060;
+    position: relative;
+}
+
+.voto-box:hover {
+    background-color: #d0e4ff;
+}
+
+.voto-box input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.voto-box input:checked + span {
+    background-color: #204060;
+    color: white;
+    border-radius: 4px;
+    padding: 4px 8px;
+}

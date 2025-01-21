@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amministratore</title>
+    <link rel="stylesheet" href="/static/css/Amministratore.css">
+    <link rel="stylesheet" href="/static/css/Orologio.css">
+</head>
+
+<body>
+    <!-- Intestazione con titolo e notifiche -->
+    <header>
+        <h1 id="page-title">Benvenuto</h1>
+        <div class="notifications">
+    <div class="icon" id="notification-icon" onclick="toggleNotifications()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2a6 6 0 0 0-6 6v3.586L5.293 13.293a1 1 0 0 0-.293.707V15a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-.293-.707L18 11.586V8a6 6 0 0 0-6-6zm0 19a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2z" />
+        </svg>
+        <div class="badge" id="notification-badge" style="display: none;">0</div>
+    </div>
+</div>
+    </header>
+
+    <!-- Pannello notifiche -->
+<div id="notification-panel" class="notification-panel">
+    <h3>Notifiche</h3>
+    <ul id="notification-list"></ul>
+</div>
+
+    <!-- Pulsante centrale blu con icona orologio -->
+    <div class="clock-button" onclick="openClock()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="white" viewBox="0 0 24 24">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 11H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v5a1 1 0 0 1-1 1z"></path>
+        </svg>
+    </div>
+
+    <main id="content" class="content"></main>
+
+    <!-- Script per interazioni della pagina -->
+    <script>
+function toggleNotifications() {
+    const panel = document.getElementById("notification-panel");
+    const badge = document.getElementById("notification-badge");
+    const icon = document.getElementById("notification-icon");
+
+    panel.style.transform = panel.style.transform === "translateX(0px)" ? "translateX(100%)" : "translateX(0px)";
+    if (panel.style.transform === "translateX(0px)") {
+        loadNotifications();
+        badge.style.display = "none"; // Nascondi il badge
+        badge.textContent = "0"; // Resetta il conteggio
+        icon.classList.remove("new-notifications"); // Rimuovi animazione
+    }
+}
+
+    function loadNotifications() {
+        fetch('/get_notifications')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    const notificationList = document.getElementById('notification-list');
+                    notificationList.innerHTML = '';
+                    data.notifications.forEach(notification => {
+                        const li = document.createElement('li');
+                        li.textContent = `${notification.message} (${new Date(notification.date).toLocaleString()})`;
+                        notificationList.appendChild(li);
+                    });
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(err => console.error("Errore nel caricamento delle notifiche:", err));
+    }
+    </script>
+
+    <script>
+ function updateNotificationBadge(count) {
+    const icon = document.getElementById('notification-icon');
+
+    if (count > 0) {
+        icon.classList.add('new-notifications'); // Aggiungi animazione "nuove notifiche"
+    } else {
+        icon.classList.remove('new-notifications'); // Rimuovi l'animazione
+    }
+}
+
+    // Simula il caricamento delle notifiche (può essere sostituito con un'API reale)
+function checkForNotifications() {
+    fetch('/get_notifications')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                const unreadCount = data.notifications.length;
+                updateNotificationBadge(unreadCount);
+            } else {
+                console.error("Errore nel caricamento delle notifiche:", data.message);
+            }
+        })
+        .catch(err => console.error("Errore nel caricamento delle notifiche:", err));
+}
+
+    checkForNotifications(); // Primo controllo all'apertura della pagina
+</script>
+    <script src="/static/js/Orologio.js"></script>
+</body>
+</html>

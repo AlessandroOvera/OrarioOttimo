@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orario Generato</title>
+</head>
+<body>
+    <h1>Orario Generato</h1>
+    <div id="orario">
+        {% for classe, orario_classe in orario.items() %}
+            <h2>Classe {{ classe }}</h2>
+            <table border="1">
+                <tr>
+                    <th>Data</th>
+                    <th>Ora</th>
+                    <th>Materia</th>
+                    <th>Docente</th>
+                </tr>
+                {% for lezione in orario_classe %}
+                <tr>
+                    <td>{{ lezione['data'] }}</td>
+                    <td>{{ lezione['ora'] }}</td>
+                    <td>{{ lezione['materia'] }}</td>
+                    <td>{{ lezione['docente'] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    </div>
+</body>
+</html>
